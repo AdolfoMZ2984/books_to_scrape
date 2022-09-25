@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Books Online Project
+# # Books Online Project 
 
 # ### Import Libraries
 
@@ -30,7 +30,7 @@ os.chdir(base_folder)
 
 
 # Building the Soup
-def build_soup(url):
+def build_soup(url):    
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
     return soup
@@ -58,7 +58,7 @@ def get_description(soup):
 # In[6]:
 
 
-# Importing table that contains multiple data points.
+# Importing table that contains multiple data points. 
 # [0] universal_product_code
 # [2] price_excluding_tax
 # [3] price_excluding_tax
@@ -172,33 +172,10 @@ def download_image(url,name):
     if r.status_code == 200:
         r.raw.decode_content = True
         with open(filename,'wb') as f:
-            shutil.copyfileobj(r.raw, f)
+            shutil.copyfileobj(r.raw, f)    
 
 
 # In[16]:
-
-
-# Create initial list of book URLs
-def make_url_list(category):
-    # Build the Soup for the Category
-    book_soup = build_soup(category)
-
-    # Find all Books URLs. URLs are relative paths, which will need to be subsituted
-    book_container = book_soup.find_all('article',{'class': "product_pod"})
-    book_url_list.clear()
-    for article in book_container:
-        for tag in article.find_all('a',{'href': True}, limit=1):
-            book_url_list.append(tag['href'])
-        # Need to add "Next loop"
-
-    # Creating new list with absolute path URLs
-
-    for book in book_url_list:
-        absolute_book_url_list.append(re.sub("\../../../","https://books.toscrape.com/catalogue/", book))
-    return(absolute_book_url_list)
-
-
-# In[17]:
 
 
 def category_sub_function(category):
@@ -206,11 +183,11 @@ def category_sub_function(category):
     #Creating list of urls for the category
     category_sub_list = []
     category_sub_list.append(category)
-
+    
     # Building the soup #1
     soup = build_soup(category)
     has_next = soup.find(class_="next")
-
+    
     #Check if next is present
     if has_next != None:
         has_next_str = str(has_next)
@@ -219,7 +196,7 @@ def category_sub_function(category):
         next_name = re.findall('page.*html', next_page)[0]
         category_sub_list.append(re.sub("index.html",next_name, category))
         soup_2 = build_soup(category_sub_list[1])
-        has_next_2 = soup_2.find(class_="next")
+        has_next_2 = soup_2.find(class_="next")    
 
         if has_next_2 != None:
             has_next_str = str(has_next_2)
@@ -228,9 +205,9 @@ def category_sub_function(category):
             next_name = re.findall('page.*html', next_page)[0]
             category_sub_list.append(re.sub("index.html",next_name, category))
             soup_3 = build_soup(category_sub_list[2])
-            has_next_3 = soup_3.find(class_="next")
+            has_next_3 = soup_3.find(class_="next")    
 
-        #Check if next is present
+            #Check if next is present
             if has_next_3 != None:
                 has_next_str = str(has_next_3)
                 temp_list = has_next_str.split(' ')
@@ -239,7 +216,7 @@ def category_sub_function(category):
             category_sub_list.append(re.sub("index.html",next_name, category))
 
             soup_4 = build_soup(category_sub_list[3])
-            has_next_4 = soup_4.find(class_="next")
+            has_next_4 = soup_4.find(class_="next")    
 
             #Check if next is present
             if has_next_4 != None:
@@ -248,10 +225,10 @@ def category_sub_function(category):
                 next_page=temp_list[2]
                 next_name = re.findall('page.*html', next_page)[0]
                 category_sub_list.append(re.sub("index.html",next_name, category))
-
+    
                 # Building next soup #5
                 soup_5 = build_soup(category_sub_list[4])
-                has_next_5 = soup_5.find(class_="next")
+                has_next_5 = soup_5.find(class_="next")    
 
                 #Check if next is present
                 if has_next_5 != None:
@@ -263,7 +240,7 @@ def category_sub_function(category):
 
                     # Building next soup #6
                     soup_6 = build_soup(category_sub_list[5])
-                    has_next_6 = soup_6.find(class_="next")
+                    has_next_6 = soup_6.find(class_="next")    
 
                     #Check if next is present
                     if has_next_6 != None:
@@ -272,10 +249,10 @@ def category_sub_function(category):
                         next_page=temp_list[2]
                         next_name = re.findall('page.*html', next_page)[0]
                         category_sub_list.append(re.sub("index.html",next_name, category))
-
+                        
                          # Building next soup #7
                         soup_7 = build_soup(category_sub_list[6])
-                        has_next_7 = soup_7.find(class_="next")
+                        has_next_7 = soup_7.find(class_="next")    
 
                         #Check if next is present
                         if has_next_7 != None:
@@ -284,10 +261,10 @@ def category_sub_function(category):
                             next_page=temp_list[2]
                             next_name = re.findall('page.*html', next_page)[0]
                             category_sub_list.append(re.sub("index.html",next_name, category))
-
+                            
                             # Building next soup #8
                             soup_8 = build_soup(category_sub_list[7])
-                            has_next_8 = soup_8.find(class_="next")
+                            has_next_8 = soup_8.find(class_="next")    
 
                             #Check if next is present
                             if has_next_8 != None:
@@ -296,10 +273,10 @@ def category_sub_function(category):
                                 next_page=temp_list[2]
                                 next_name = re.findall('page.*html', next_page)[0]
                                 category_sub_list.append(re.sub("index.html",next_name, category))
-
+                                
                                 # Building next soup #9
                                 soup_9 = build_soup(category_sub_list[8])
-                                has_next_9 = soup_9.find(class_="next")
+                                has_next_9 = soup_9.find(class_="next")    
 
                                 #Check if next is present
                                 if has_next_9 != None:
@@ -308,8 +285,31 @@ def category_sub_function(category):
                                     next_page=temp_list[2]
                                     next_name = re.findall('page.*html', next_page)[0]
                                     category_sub_list.append(re.sub("index.html",next_name, category))
-
+    
     return(category_sub_list)
+
+
+# In[17]:
+
+
+# Create initial list of book URLs
+def make_url_list(category):
+    # Build the Soup for the Category
+    book_soup = build_soup(category)
+    
+    # Find all Books URLs. URLs are relative paths, which will need to be subsituted
+    book_container = book_soup.find_all('article',{'class': "product_pod"})
+    book_url_list.clear()
+    for article in book_container:
+        for tag in article.find_all('a',{'href': True}, limit=1):
+            book_url_list.append(tag['href'])
+        # Need to add "Next loop"
+    
+    # Creating new list with absolute path URLs
+    
+    for book in book_url_list:
+        absolute_book_url_list.append(re.sub("\../../../","https://books.toscrape.com/catalogue/", book))
+    return(absolute_book_url_list)
 
 
 # ## Making a list of Category URLs
@@ -328,7 +328,7 @@ container = main_soup.find(class_="side_categories")
 url_list=[]
 for tag in container.find_all('a',{'href': True}):
     url_list.append(tag['href'])
-
+    
 # Creating list that contains strings from url_list and adds missing part of https address
 full_category_list=[]
 for category in url_list:
@@ -339,7 +339,7 @@ del full_category_list[0]
 
 # ## Looping Through Books and Categories and Writting in CSV file.
 
-# In[ ]:
+# In[19]:
 
 
 # This is incomplete pending "If Then" for multipage categories
@@ -349,26 +349,26 @@ book_url_list=[]
 for category in full_category_list:
     # Create a Name for the csv file and change working directory
     folder_name = re.search('books/(.+?)/index.html', category).group(1)
-
+    
     # Changing Working Directory
     os.chdir(base_folder)
     path_name = base_folder + '/' + folder_name
-    if os.path.exists(path_name):
+    if os.path.exists(path_name):  
         os.chdir(path_name)
     else:
         os.mkdir(path_name)
         os.chdir(path_name)
-
+    
     # Clear the book url list
     absolute_book_url_list =  []
     cat_list = category_sub_function(category)
     for cat in cat_list:
-        absolute_book_url_list += make_url_list(cat)
-
+        absolute_book_url_list = make_url_list(cat)
+    
     # Build CSV file name
     cat_name = re.search('books/(.+?)/index.html', category).group(1)
     category_name = re.search('books/(.+?)/index.html', category).group(1) + ".csv"
-
+    
     header = ['title','description','universal_product_code', 'price_excluding_tax', 'price_including_tax', 'number_available', 'category', 'review_rating', 'image_url']
     with open(category_name, 'w', newline='', encoding='utf-8') as csv_file:
         writer = csv.writer(csv_file)
@@ -377,12 +377,10 @@ for category in full_category_list:
             url = x
             data_row = get_row(url)
             writer.writerow(data_row)
-
+            
             #Download Image
             download_image(data_row[8],data_row[0])
-
-    # Print the name of each CSV file as writting it is completed.
+    
+    # Print the name of each CSV file as writting it is completed. 
     print(category_name)
 
-
-# In[ ]:

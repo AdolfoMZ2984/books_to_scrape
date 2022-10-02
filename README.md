@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a project created for the Python Basics for Market Analysis. It uses Beautiful Soup to scrape bookstoscrape.com and download key datapoints and images.
+This is a project created for the Python Basics for Market Analysis. It uses Beautiful Soup to scrape [Books to Scrape](https://books.toscrape.com/) and download key datapoints and images.
 
 ## Installation
 
@@ -20,7 +20,7 @@ The program uses the following Python packages:
 
 ## Script Overview
 
-The program visits [Books to Scrape](www.bookstoscrape.com) and creates a list of all categories, with their respective URLs. The program subsequently cycles through each Category URL and creates a list of each Book in the category and its URL. The scrips then cycles through each individual Book's page and uses BS4 and Regex to extract the following data points:
+The program visits [Books to Scrape](https://books.toscrape.com/) and creates a list of all categories, with their respective URLs. The program subsequently cycles through each Category URL and creates a list of each Book in the category and its URL. The scrips then cycles through each individual Book's page and uses BS4 and Regex to extract the following data points:
 1. Title
 2. Description
 3. Universal Product Code
@@ -33,4 +33,4 @@ The program visits [Books to Scrape](www.bookstoscrape.com) and creates a list o
 
 ## Outputs
 
-The program creates a folder named 'Catalog', if it doesn't already exist. It then creates a folder for each category in which it subsequently places the downloaded image for each book and a .csv file containing a row for each book in the category. 
+The program creates a folder named 'Catalog', if it doesn't already exist. It then creates a folder for each category in which it subsequently places the downloaded image for each book and a .csv file containing a row for each book in the category.

@@ -31,6 +31,10 @@ The program visits [Books to Scrape](https://books.toscrape.com/) and creates a 
 8. Review Rating (Stars)
 9. Image URL
 
+As part of the inner loop (for each book) the script also downloads the Book's jpg.
+
+The script relies heavily on functions and while loops to run.
+
 ## Outputs
 
-The program creates a folder named 'Catalog', if it doesn't already exist. It then creates a folder for each category in which it subsequently places the downloaded image for each book and a .csv file containing a row for each book in the category.
+The program creates a folder named 'Catalog', if it doesn't already exist. It then creates a folder for each category in which it subsequently places the downloaded image for each book and a .csv file containing a row for each book in the category. This folder is referenced in this repository's .gitignore to avoid uploading its contents to the remote repository. 

@@ -28,7 +28,11 @@ tic = time.perf_counter()
 # Setting Working Directory
 current_folder = os.getcwd()
 base_folder = current_folder + '/' + 'Categories'
-os.chdir(base_folder)
+if os.path.exists(base_folder):
+    os.chdir(base_folder)
+else:
+    os.mkdir(base_folder)
+    os.chdir(base_folder)
 
 
 # ### Creating Functions that will be used in the program
@@ -321,7 +325,3 @@ print(round((toc-tic)/60,1))
 
 
 # In[ ]:
-
-
-
-

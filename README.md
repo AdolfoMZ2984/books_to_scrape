@@ -16,9 +16,9 @@ The program uses the following Python packages:
 * re
 * os
 * shutil
-* time.
+* time
 
-## Results
+## Script Overview
 
 The program visits [Books to Scrape][www.bookstoscrape.com] and creates a list of all categories, with their respective URLs. The program subsequently cycles through each Category URL and creates a list of each Book in the category and its URL. The scrips then cycles through each individual Book's page and uses BS4 and Regex to extract the following data points:
 1. Title
@@ -30,3 +30,7 @@ The program visits [Books to Scrape][www.bookstoscrape.com] and creates a list o
 7. Category
 8. Review Rating (Stars)
 9. Image URL
+
+## Outputs
+
+The program 

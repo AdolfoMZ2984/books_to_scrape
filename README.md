@@ -6,7 +6,7 @@ This is a project created for the Python Basics for Market Analysis. It uses Bea
 
 ## Installation
 
-This script was written using Anaconda and Jupyter Notebook, Python 3 (ipykernel). You can download both [Anaconda](https://www.anaconda.com/products/distribution?gclid=Cj0KCQjwyt-ZBhCNARIsAKH1176dQWl6WYnqVvLy0lC4LNAUl-FRbUQFCUnwgK7nSYl-CXcloFMSKkIaAm_zEALw_wcB) and [Jupyter](https://jupyter.org/install).
+This script was written using Anaconda and Jupyter Notebook, Python 3 (ipykernel). You can download both [Anaconda](https://www.anaconda.com/products/distribution?gclid=Cj0KCQjwyt-ZBhCNARIsAKH1176dQWl6WYnqVvLy0lC4LNAUl-FRbUQFCUnwgK7nSYl-CXcloFMSKkIaAm_zEALw_wcB) and [Jupyter](https://jupyter.org/install). The version of Python installed is 3.10.7 (64-bit)
 
 ## Packages
 
@@ -37,4 +37,4 @@ The script relies heavily on functions and while loops to run.
 
 ## Outputs
 
-The program creates a folder named 'Catalog', if it doesn't already exist. It then creates a folder for each category in which it subsequently places the downloaded image for each book and a .csv file containing a row for each book in the category. This folder is referenced in this repository's .gitignore to avoid uploading its contents to the remote repository. When the script is done running, the Categories file will be between 40 and 45 MB in size. 
+The program creates a folder named 'Catalog', if it doesn't already exist. It then creates a folder for each category in which it subsequently places the downloaded image for each book and a .csv file containing a row for each book in the category. This folder is referenced in this repository's .gitignore to avoid uploading its contents to the remote repository. When the script is done running, the Categories file will be between 40 and 45 MB in size.

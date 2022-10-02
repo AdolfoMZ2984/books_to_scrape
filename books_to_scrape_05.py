@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Books Online Project 
+# # Books Online Project
 
 # ### Import Libraries
 
@@ -37,7 +37,7 @@ os.chdir(base_folder)
 
 
 # Building the Soup
-def build_soup(url):    
+def build_soup(url):
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
     return soup
@@ -65,7 +65,7 @@ def get_description(soup):
 # In[7]:
 
 
-# Importing table that contains multiple data points. 
+# Importing table that contains multiple data points.
 # [0] universal_product_code
 # [2] price_excluding_tax
 # [3] price_excluding_tax
@@ -179,7 +179,7 @@ def download_image(url,name):
     if r.status_code == 200:
         r.raw.decode_content = True
         with open(filename,'wb') as f:
-            shutil.copyfileobj(r.raw, f)    
+            shutil.copyfileobj(r.raw, f)
 
 
 # In[17]:
@@ -190,8 +190,8 @@ def category_sub_function(category):
     #Creating list of urls for the category
     category_sub_list = []
     category_sub_list.append(category)
-    
-    # Building the soup 
+
+    # Building the soup
     soup = build_soup(category)
     has_next = soup.find(class_="next")
 
@@ -204,7 +204,7 @@ def category_sub_function(category):
         category_sub_list.append(re.sub("index.html",next_name, category))
         soup = build_soup(category_sub_list[i])
         has_next = soup.find(class_="next")
-        i = i + 1 
+        i = i + 1
     return(category_sub_list)
 
 
@@ -215,7 +215,7 @@ def category_sub_function(category):
 def make_url_list(category):
     # Build the Soup for the Category
     book_soup = build_soup(category)
-    
+
     # Find all Books URLs. URLs are relative paths, which will need to be subsituted
     book_container = book_soup.find_all('article',{'class': "product_pod"})
     book_url_list.clear()
@@ -245,7 +245,7 @@ container = main_soup.find(class_="side_categories")
 url_list=[]
 for tag in container.find_all('a',{'href': True}):
     url_list.append(tag['href'])
-    
+
 # Creating list that contains strings from url_list and adds missing part of https address
 full_category_list=[]
 for category in url_list:
@@ -266,26 +266,26 @@ book_url_list=[]
 for category in full_category_list:
     # Create a Name for the csv file and change working directory
     folder_name = re.search('books/(.+?)/index.html', category).group(1)
-    
+
     # Changing Working Directory
     os.chdir(base_folder)
     path_name = base_folder + '/' + folder_name
-    if os.path.exists(path_name):  
+    if os.path.exists(path_name):
         os.chdir(path_name)
     else:
         os.mkdir(path_name)
         os.chdir(path_name)
-    
+
     # Clear the book url list
     absolute_book_url_list =  []
     cat_list = category_sub_function(category)
     for cat in cat_list:
         absolute_book_url_list = make_url_list(cat)
-    
+
     # Build CSV file name
     cat_name = re.search('books/(.+?)/index.html', category).group(1)
     category_name = re.search('books/(.+?)/index.html', category).group(1) + ".csv"
-    
+
     header = ['title','description','universal_product_code', 'price_excluding_tax', 'price_including_tax', 'number_available', 'category', 'review_rating', 'image_url']
     with open(category_name, 'w', newline='', encoding='utf-8') as csv_file:
         writer = csv.writer(csv_file)
@@ -294,14 +294,15 @@ for category in full_category_list:
             url = x
             data_row = get_row(url)
             writer.writerow(data_row)
-            
+
             #Download Image
             download_image(data_row[8],data_row[0])
-    
-    # Print the name of each CSV file as writting it is completed. 
+
+    # Print the name of each CSV file as writting it is completed.
     print(category_name)
 os.chdir(base_folder)
 
+print('Complete!')
 
 # ## Stopping Timer
 
@@ -316,7 +317,7 @@ print(round((toc-tic)/60,1))
 # In[22]:
 
 
-pip freeze > requirements.txt
+#pip freeze > requirements.txt
 
 
 # In[ ]:

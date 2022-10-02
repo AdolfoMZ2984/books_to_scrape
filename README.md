@@ -10,7 +10,13 @@ This script was written using Anaconda and Jupyter Notebook, Python 3 (ipykernel
 
 ## Packages
 
-The program uses the following Python packages: requests, csv, re, os, shutil, time.
+The program uses the following Python packages:
+* requests
+* csv
+* re
+* os
+* shutil
+* time.
 
 ## Results
 

@@ -6,7 +6,7 @@ This is a project created for the Python Basics for Market Analysis. It uses Bea
 
 ## Installation
 
-This script was written using Anaconda and Jupyter Notebook, Python 3 (ipykernel). You can download both [Anaconda][https://www.anaconda.com/products/distribution?gclid=Cj0KCQjwyt-ZBhCNARIsAKH1176dQWl6WYnqVvLy0lC4LNAUl-FRbUQFCUnwgK7nSYl-CXcloFMSKkIaAm_zEALw_wcB] and [Jupyter][https://jupyter.org/install].
+This script was written using Anaconda and Jupyter Notebook, Python 3 (ipykernel). You can download both [Anaconda](https://www.anaconda.com/products/distribution?gclid=Cj0KCQjwyt-ZBhCNARIsAKH1176dQWl6WYnqVvLy0lC4LNAUl-FRbUQFCUnwgK7nSYl-CXcloFMSKkIaAm_zEALw_wcB) and [Jupyter](https://jupyter.org/install).
 
 ## Packages
 

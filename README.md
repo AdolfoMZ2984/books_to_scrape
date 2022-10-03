@@ -17,6 +17,7 @@ The program uses the following Python packages:
 * os
 * shutil
 * time
+* BS4
 
 ## Virtual Environment
 
@@ -25,7 +26,8 @@ Using a virtual environment allows you to download specific packages for a proje
 In Windows, go to your Command Prompt (Windows Key + cmd). Once there us cd to navigate to the desired folder.
 
 1. To initialize a virtual environment type the following into the command prompt: python -m venv <project_name>.
-2. To activate the virtual environment type: ,project_name>\Scripts\activate.bat
+2. To activate the virtual environment type: <project_name>\Scripts\activate.bat
+3. Download Packages: requests, csv, re, os, shutil, time
 
 ## Script Overview
 

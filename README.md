@@ -25,13 +25,13 @@ Using a virtual environment allows you to download specific packages for a proje
 
 1. Create a new folder in your directory
 2. Download the following files from this repo into the new folder: books_to_scrape_05.py and requirements.txt
-2. In Windows, go to your Command Prompt and use cd to navigate to the newly created folder.
-3. To create a virtual environment type the following into the command prompt: python -m venv venv
-3. To activate the virtual environment type: venv\Scripts\activate.bat
-4. To install the requirements type: pip install -r requirements.txt
-To run the script type: python books_to_scrape_05.py
-5. To deactivate the environment type: deactivate
-6. To delete the environment: rmdir venv /s
+3. In Windows, go to your Command Prompt and use cd to navigate to the newly created folder.
+4. To create a virtual environment type the following into the command prompt: python -m venv venv
+5. To activate the virtual environment type: venv\Scripts\activate.bat
+6. To install the requirements type: pip install -r requirements.txt
+7. To run the script type: python books_to_scrape_05.py
+8. To deactivate the environment type: deactivate
+9. To delete the environment: rmdir venv /s
 
 
 ## Script Overview

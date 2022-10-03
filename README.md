@@ -6,7 +6,7 @@ This is a project created for the Python Basics for Market Analysis. It uses Bea
 
 ## Installation
 
-This script was written using Anaconda and Jupyter Notebook, Python 3 (ipykernel). You can download both [Anaconda](https://www.anaconda.com/products/distribution?gclid=Cj0KCQjwyt-ZBhCNARIsAKH1176dQWl6WYnqVvLy0lC4LNAUl-FRbUQFCUnwgK7nSYl-CXcloFMSKkIaAm_zEALw_wcB) and [Jupyter](https://jupyter.org/install). The version of Python installed is 3.10.7 (64-bit)
+The version of Python installed is 3.10.7 (64-bit)
 
 ## Packages
 
@@ -21,13 +21,18 @@ The program uses the following Python packages:
 
 ## Virtual Environment
 
-Using a virtual environment allows you to download specific packages for a project. We will use the VEMV module in Python (over 3.3).
+Using a virtual environment allows you to download specific packages for a project. We will use the VEMV module in Python.
 
-In Windows, go to your Command Prompt (Windows Key + cmd). Once there us cd to navigate to the desired folder.
+1. Create a new folder in your directory
+2. Download the following files from this repo into the new folder: books_to_scrape_05.py and requirements.txt
+2. In Windows, go to your Command Prompt and use cd to navigate to the newly created folder.
+3. To create a virtual environment type the following into the command prompt: python -m venv venv
+3. To activate the virtual environment type: venv\Scripts\activate.bat
+4. To install the requirements type: pip install -r requirements.txt
+To run the script type: python books_to_scrape_05.py
+5. To deactivate the environment type: deactivate
+6. To delete the environment: rmdir venv /s
 
-1. To initialize a virtual environment type the following into the command prompt: python -m venv <project_name>.
-2. To activate the virtual environment type: <project_name>\Scripts\activate.bat
-3. Download Packages: requests, csv, re, os, shutil, time
 
 ## Script Overview
 

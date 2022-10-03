@@ -18,6 +18,15 @@ The program uses the following Python packages:
 * shutil
 * time
 
+## Virtual Environment
+
+Using a virtual environment allows you to download specific packages for a project. We will use the VEMV module in Python (over 3.3).
+
+In Windows, go to your Command Prompt (Windows Key + cmd). Once there us cd to navigate to the desired folder.
+
+1. To initialize a virtual environment type the following into the command prompt: python -m venv <project_name>.
+2. To activate the virtual environment type: ,project_name>\Scripts\activate.bat
+
 ## Script Overview
 
 The program visits [Books to Scrape](https://books.toscrape.com/) and creates a list of all categories, with their respective URLs. The program subsequently cycles through each Category URL and creates a list of each Book in the category and its URL. The scrips then cycles through each individual Book's page and uses BS4 and Regex to extract the following data points:

@@ -1,31 +1,21 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Books Online Project
 
-# ### Import Libraries
-
-# In[1]:
-
-
+# Import Libraries
+# This block of code is importing the libraries that will be used.
 import requests, csv, re, os, shutil, time
 from bs4 import BeautifulSoup
 
 
-# ## Starting Timer
-
-# In[2]:
-
-
+# Starting Timer
+# This block is starting a timer.
 tic = time.perf_counter()
 
 
-# ### Setting Working Directory
-
-# In[3]:
-
-
 # Setting Working Directory
+# This block is looking for a folder named "Categories" creates one if its not there and sets it as the working directory.
+# This folder should be added to the .gitignore file to prevent uploading the files the code creates.
 current_folder = os.getcwd()
 base_folder = current_folder + '/' + 'Categories'
 if os.path.exists(base_folder):
@@ -35,46 +25,43 @@ else:
     os.chdir(base_folder)
 
 
-# ### Creating Functions that will be used in the program
-
-# In[4]:
-
+# Creating Functions that will be used in the program
 
 # Building the Soup
+# Input: Book URL
+# Output: Book Soup object
+# Description: This function intakes the URL for a book and returns a Soup object that will be used by subsequent functions to extract desired data points.
 def build_soup(url):
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
     return soup
 
-
-# In[5]:
-
-
 # Getting Title
+# Input: Book Soup Object
+# Output: String with the Book's title
+# Description: This function intakes the Soup object for a book and returns a variable containg the title as a string extracted from the "product_main" html block.
 def get_title(soup):
     product_main =soup.find(class_="col-sm-6 product_main")
     title = product_main.h1.string
     return title
 
-
-# In[6]:
-
-
 # Getting Description
+# Input: Book Soup Object
+# Output: String with the Book's description
+# Description: This function intakes the Soup object for a book and returns a variable containg the description as a string extracted from the "meta" html block.
 def get_description(soup):
     description = soup.find('meta', attrs={"name": "description"}).get('content')
     return description
 
-
-# In[7]:
-
-
 # Importing table that contains multiple data points.
+# Input: Book Soup Object
+# Output: List with various desired data elements
+# Description: This function intakes the Soup object for a book and returns a list which houses several of the desired data elements extracted from the "table" in html.
+# Desired data points are:
 # [0] universal_product_code
 # [2] price_excluding_tax
 # [3] price_excluding_tax
 # [5] number_available
-
 def get_table(soup):
     data = []
     table = soup.find('table', class_='table-striped')
@@ -84,56 +71,51 @@ def get_table(soup):
             data.append(element.string)
     return data
 
-
-# In[8]:
-
-
 # universal_product_code
+# Input: data (list extracted from html with several desired data points)
+# Output: String with the Book's UPC
+# Description: This function extracts the first entry in the data list, which containes the upc.
 def get_upc(data):
     universal_product_code = data[0]
     return universal_product_code
 
-
-# In[9]:
-
-
 # price_excluding_tax
+# Input: data (list extracted from html with several desired data points)
+# Output: String with the Book's price_excluding_tax
+# Description: This function extracts the third entry in the data list, which containes the price_excluding_tax.
 def get_price_excluding_tax(data):
     price_excluding_tax = data[2]
     return price_excluding_tax
 
-
-# In[10]:
-
-
 # price_including_tax
+# Input: data (list extracted from html with several desired data points)
+# Output: String with the Book's price_including_tax
+# Description: This function extracts the fourth entry in the data list, which containes the price_including_tax.
 def get_price_including_tax(data):
     price_including_tax = data[3]
     return price_including_tax
 
-
-# In[11]:
-
-
 # number_available
+# Input: data (list extracted from html with several desired data points)
+# Output: String with the Book's number_available
+# Description: This function extracts the sixth entry in the data list, which containes the number_available.
 def get_number_available(data):
     number_available = data[5]
     return number_available
 
 
-# In[12]:
-
-
 # category
+# Input: Variable containing the Category name
+# Output: String with the Book's category
+# Description: This function takes the category name from the part of the script that loops through categories and returns it as a string. This function does not actually take the info from the html.
 def get_category(soup):
     category = cat_name
     return category
 
-
-# In[13]:
-
-
 # review rating
+# Input: Book Soup Object
+# Output: String with the Book's review
+# Description: This function intakes the Soup object for a book and returns a variable containg the rating as a string extracted from the "star-rating" html block.
 def get_review_rating(soup):
     review_rating = str(soup.find("p", class_="star-rating"))
     temp_list = review_rating.split(' ')
@@ -141,22 +123,19 @@ def get_review_rating(soup):
     stars = rating[:-5]
     return stars
 
-
-# In[14]:
-
-
 # Image URL
+# Input: Book Soup Object
+# Output: String with the URL to the jpeg image
+# Description: This function intakes the Soup object for a book and returns a variable containg the jpg's URL as a string extracted from the "img" html block
 def get_image_url(soup):
     url_list = soup.find_all("img")
     image_url = re.sub("\../../","https://books.toscrape.com/", url_list[0]['src'])
     return image_url
 
-
-# In[15]:
-
-
-# This function aggregates the function above, together they create a row to add to the CSV file with a single book's data
-
+# Run functions above
+# Input: Url for a book
+# Output: Variable containing a list with all the desired datapoints for the book
+# Description: This function aggregates the function above, together they create a row to add to the CSV file with a single book's data
 def get_row(url):
     soup                   = build_soup(url)
     title                  = get_title(soup)
@@ -172,11 +151,10 @@ def get_row(url):
     data_row =[title, description, universal_product_code, price_excluding_tax, price_including_tax, number_available, category, review_rating, image_url]
     return data_row
 
-
-# In[16]:
-
-
 # Image Dowload
+# Input: Url for a book's image and its name
+# Output: Downloaded jpg into the working evnironment
+# Description: Downloads the image for each book
 def download_image(url,name):
     filename = url.split("/")[-1]
     r = requests.get(url, stream = True)
@@ -185,13 +163,12 @@ def download_image(url,name):
         with open(filename,'wb') as f:
             shutil.copyfileobj(r.raw, f)
 
-
-# In[17]:
-
-
+# Checking for categories with multiple pages and creating a list of all the URLs for the category
+# Input: first Url for a Category
+# Output: List of all URLs for a category
+# Description: This function takes the first URL of a given category and checks to see if there are others by looking for a "next" tag in html. If it does find others it adds them to a list, which is the output of the function
 def category_sub_function(category):
 
-    #Creating list of urls for the category
     category_sub_list = []
     category_sub_list.append(category)
 
@@ -199,6 +176,7 @@ def category_sub_function(category):
     soup = build_soup(category)
     has_next = soup.find(class_="next")
 
+    # Creating a loop that will continue until it reaches a URL without a "next" section
     i=1
     while has_next != None:
         has_next_str = str(has_next)
@@ -211,34 +189,28 @@ def category_sub_function(category):
         i = i + 1
     return(category_sub_list)
 
-
-# In[18]:
-
-
 # Create initial list of book URLs
+# Input: Url for a category, if a category has more than 1 url, this function is ran more than once
+# Output: List with a URL for each book in that Category URL
+# Description: Builds a soup for the page and makes a list of all the book urls in it.
 def make_url_list(category):
     # Build the Soup for the Category
     book_soup = build_soup(category)
-
     # Find all Books URLs. URLs are relative paths, which will need to be subsituted
     book_container = book_soup.find_all('article',{'class': "product_pod"})
     book_url_list.clear()
     for article in book_container:
         for tag in article.find_all('a',{'href': True}, limit=1):
             book_url_list.append(tag['href'])
-
     # Creating new list with absolute path URLs
     for book in book_url_list:
         absolute_book_url_list.append(re.sub("\../../../","https://books.toscrape.com/catalogue/", book))
     return(absolute_book_url_list)
 
-
-# ## Making a list of Category URLs
-
-# In[19]:
-
-
-#The block below will create the list of URLs for each Category
+# Getting Category URLs
+# Input: Book's to scrape website URL
+# Output: List of URLs for the first page of each category
+# Description: The block below will create the list of URLs for each Category
 
 #Making the soup for the main page
 main_page = "http://books.toscrape.com/catalogue/category/books_1/index.html"
@@ -257,13 +229,10 @@ for category in url_list:
     full_category_list.append(re.sub("\../","https://books.toscrape.com/catalogue/category/", category))
 del full_category_list[0]
 
-
-# ## Looping Through Books and Categories and Writting in CSV file.
-
-# In[20]:
-
-
-# This is incomplete pending "If Then" for multipage categories
+# Main Function
+# Input: List of Category URLs
+# Output: A folder for each Category with a csv file and all the jpg images
+# Description: This is the main portion of the script. It all the functions above except for those that are used to create the list with Category urls.
 
 book_url_list=[]
 # Start with the category list
@@ -282,7 +251,10 @@ for category in full_category_list:
 
     # Clear the book url list
     absolute_book_url_list =  []
+
+    # Runs the function to add URLs if the category has more than one page.
     cat_list = category_sub_function(category)
+    # Takes the list of urls for the category and loops through them to create a complete list of urls for each book
     for cat in cat_list:
         absolute_book_url_list = make_url_list(cat)
 
@@ -290,11 +262,15 @@ for category in full_category_list:
     cat_name = re.search('books/(.+?)/index.html', category).group(1)
     category_name = re.search('books/(.+?)/index.html', category).group(1) + ".csv"
 
+    # Create header for the csv file
     header = ['title','description','universal_product_code', 'price_excluding_tax', 'price_including_tax', 'number_available', 'category', 'review_rating', 'image_url']
+    # Create CSV file
     with open(category_name, 'w', newline='', encoding='utf-8') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(header)
+        #Loop through each Book URL in the category
         for x in absolute_book_url_list:
+            # Get the url and run the BS4 and Regex functions to get the data
             url = x
             data_row = get_row(url)
             writer.writerow(data_row)
@@ -305,23 +281,9 @@ for category in full_category_list:
     # Print the name of each CSV file as writting it is completed.
     print(category_name)
 os.chdir(base_folder)
-
 print('Complete!')
 
-# ## Stopping Timer
-
-# In[21]:
-
-
+# Stopping Timer
+# Stops timer and prints the elapsed time, in minutes rounded to one decimal
 toc = time.perf_counter()
-
 print(round((toc-tic)/60,1))
-
-
-# In[22]:
-
-
-#pip freeze > requirements.txt
-
-
-# In[ ]:

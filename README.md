@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a project created for the Python Basics for Market Analysis. It uses Beautiful Soup to scrape [Books to Scrape](https://books.toscrape.com/) and download key datapoints and images.
+This is a project created for the Python Basics for Market Analysis project at OpenClassrooms. It uses Beautiful Soup to scrape [Books to Scrape](https://books.toscrape.com/) and download key datapoints and images.
 
 ## Installation
 
